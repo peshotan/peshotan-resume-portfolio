@@ -30,6 +30,15 @@ jobs:
           base64 --decode /tmp/site.tar.gz.b64 > /tmp/site.tar.gz
           mkdir -p _site
           tar -xzf /tmp/site.tar.gz -C _site
+          sed -i \
+            -e 's#="/assets/#="/peshotan-resume-portfolio/assets/#g' \
+            -e 's#="/favicon.svg#="/peshotan-resume-portfolio/favicon.svg#g' \
+            _site/index.html
+
+          find _site/assets -type f -name '*.js' -exec sed -i \
+            -e 's#"/peshotan-portrait.png#"/peshotan-resume-portfolio/peshotan-portrait.png#g' \
+            -e 's#"/Peshotan-Irani-Resume.pdf#"/peshotan-resume-portfolio/Peshotan-Irani-Resume.pdf#g' \
+            {} +
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
